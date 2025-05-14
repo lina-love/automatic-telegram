@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Meta and CSS -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Analytics Example</title>
     <link rel="stylesheet" href="styles.css" />
 
-    <!-- Usercentrics Autoblocker and CMP -->
     <script src="https://web.cmp.usercentrics.eu/modules/autoblocker.js"></script>
     <script
       id="usercentrics-cmp"
@@ -16,55 +14,26 @@
       async
     ></script>
 
-    <!-- Google Consent Mode Setup -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-TH428BED7X"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
+      gtag("js", new Date());
 
-      // Consent Mode v2 default (denied until accepted)
-      gtag("consent", "default", {
-        ad_storage: "denied",
-        analytics_storage: "denied",
-      });
+      gtag("config", "G-TH428BED7X");
     </script>
-
-    <!-- Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-TH428BED7X"
-    ></script>
   </head>
-
   <body>
     <div class="container">
-      <h1>Hello, World2!</h1>
+      <h1>Hello, World!2</h1>
       <button onclick="handleClick()">Click Me</button>
     </div>
 
     <script src="script.js"></script>
-    <script>
-      // Wait for Usercentrics to load and then check consent
-      window.addEventListener("UC_UI_INITIALIZED", function () {
-        const usercentrics = window.Usercentrics;
-        const hasAnalyticsConsent = usercentrics
-          .getServicesBaseInfo()
-          .some(
-            (service) =>
-              service.templateId === "google-analytics" &&
-              service.isConsentGiven
-          );
-
-        if (hasAnalyticsConsent) {
-          gtag("consent", "update", {
-            analytics_storage: "granted",
-          });
-
-          gtag("js", new Date());
-          gtag("config", "G-TH428BED7X");
-        }
-      });
-    </script>
   </body>
 </html>
